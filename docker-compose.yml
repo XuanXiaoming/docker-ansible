@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  controller:
+    image: xbuntu
+    tty: true
+    container_name: xcontroller
+    privileged: true
+    volumes:
+      - .:/share
+    command: /share/init.sh
+    depends_on:
+      - node1
+      - node2
+
+  node1:
+    image: xbuntu
+    tty: true
+    container_name: xnode1
+    privileged: true
+    volumes:
+      - .:/share
+    command: /share/node_init.sh
+
+  node2:
+    image: xbuntu
+    tty: true
+    container_name: xnode2
+    privileged: true
+    volumes:
+      - .:/share
+    command: /share/node_init.sh
