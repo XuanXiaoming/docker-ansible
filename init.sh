@@ -20,7 +20,7 @@ for line in `cat /share/iplist`
 do
     echo $line
     sshpass -p 'root' ssh-copy-id "-o StrictHostKeyChecking=no" root@$line
-    echo "node-'$line' ansible_ssh_host='$line' ansible_ssh_user=root" >> ~/ansible/inventory/hosts
+    echo "node-$line ansible_ssh_host=$line ansible_ssh_user=root" >> ~/ansible/inventory/hosts
 done
 
 tail -f /dev/null;
