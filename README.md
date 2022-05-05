@@ -22,5 +22,3 @@ docker compose up
   ![WX20220420-165919](https://user-images.githubusercontent.com/10046849/164191679-99be8b69-f886-4565-be37-8ec790b001bf.png)
 
 ######
-
-> 注: 再次使用前请将iplist文件清空
