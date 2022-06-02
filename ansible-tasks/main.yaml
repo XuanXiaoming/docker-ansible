@@ -1,0 +1,22 @@
+-   hosts: node
+    gather_facts: true
+    remote_user: root
+    become: true
+    tasks:
+    -   name: copy zabbix_agent installed package to remote
+        copy:
+            src: /share/ansible-tasks/zabbix_agent-5.0.17-linux-4.12-ppc64le-static
+            dest: ~/
+            mode: 0755  # 授予用户权限
+    -   name: get local ip
+        shell: ifconfig eth0 | grep "inet" | awk '{print $2}'
+        register: localIP  # 注册变量
+    -   name: edit zabbix-agent Hostname
+        replace:
+            path: ~/zabbix_agent-5.0.17-linux-4.12-ppc64le-static/etc/zabbix/zabbix_agentd.conf
+            regexp: Hostname=Zabbix server
+            replace: Hostname={{localIP.stdout}}
+    -   name: start zabbix-agent Server
+        shell: 
+            cd ~/zabbix_agent-5.0.17-linux-4.12-ppc64le-static/;
+            ./usr/sbin/zabbix_agentd -c ./etc/zabbix/zabbix_agentd.conf;

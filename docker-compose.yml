@@ -6,6 +6,9 @@ services:
     tty: true
     container_name: xcontroller
     privileged: true
+    ports:
+      - "80:80"
+      - "10050:10050"
     volumes:
       - .:/share
     command: /share/init.sh
@@ -18,6 +21,8 @@ services:
     tty: true
     container_name: xnode1
     privileged: true
+    ports:
+      - "10001:10050"
     volumes:
       - .:/share
     command: /share/node_init.sh
@@ -27,6 +32,21 @@ services:
     tty: true
     container_name: xnode2
     privileged: true
+    ports:
+      - "10002:10050"
     volumes:
       - .:/share
     command: /share/node_init.sh
+
+# 配置访问外网
+# networks:
+#   bridge:
+#       driver: macvlan
+#       driver_opts:
+#           com.docker.network.enable_ipv4: "true"
+#           parent: mac0
+#       ipam:
+#           config:
+#               - subnet: xxx.xxx.xxx.xxx/xx
+#                 ip-range: xxx.xxx.xxx.xxx/xx
+#                 gateway: xxx.xxx.xxx.xxx
